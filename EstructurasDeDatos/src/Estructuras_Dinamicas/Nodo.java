@@ -6,8 +6,8 @@
 package Estructuras_Dinamicas;
 
 /**
- *
- * @author Usuario
+ 
+  @author Usuario
  */
 public class Nodo {
     
