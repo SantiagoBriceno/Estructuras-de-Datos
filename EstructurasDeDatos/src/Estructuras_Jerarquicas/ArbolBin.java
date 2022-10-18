@@ -5,6 +5,7 @@
  */
 package Estructuras_Jerarquicas;
 import Estructuras_Dinamicas.*;
+import Estructuras_Lineales.*;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -355,52 +356,6 @@ public class ArbolBin {
 
     
     /*------------------ LISTAR --------------------*/
-    public String listarPreOrden2(){
-        String res = listarPreOrdenAux2("[", this.raiz);
-        res += "]";
-        return res;
-    }
-    
-    private String listarPreOrdenAux2(String res, NodoArbol nodo){
-        if(nodo != null){
-            res += " " + nodo.getElem();
-            res += listarPreOrdenAux2(res, nodo.getIzquierdo());
-            res += listarPreOrdenAux2(res, nodo.getDerecho());
-        }
-        return res;
-    }
-    
-    public String listarInOrden2(){
-        String res = listarInOrdenAux2("[", this.raiz);
-        res += "]";
-        return res;
-    }
-    
-    private String listarInOrdenAux2(String res, NodoArbol nodo){
-        if(nodo != null){
-            
-            res += listarInOrdenAux2(res, nodo.getIzquierdo());
-            res += " " + nodo.getElem();
-            res += listarInOrdenAux2(res, nodo.getDerecho());
-        }
-        return res;
-    }
-    
-    public String listarPosOrden2(){
-        String res = listarPosOrdenAux2("[", this.raiz);
-        res += "]";
-        return res;
-    }
-    
-    private String listarPosOrdenAux2(String res, NodoArbol nodo){
-        if(nodo != null){
-            res += listarInOrdenAux2(res, nodo.getIzquierdo());
-            res += listarInOrdenAux2(res, nodo.getDerecho());
-            res += " " + nodo.getElem();
-        }
-        return res;
-    }
-        
     public Lista listarPreorden() {
         //retorna una lista con los elementos del arbol en preorden
         Lista lis = new Lista();
@@ -450,30 +405,32 @@ public class ArbolBin {
             lis.insertar(nodo.getElem(), lis.longitud() + 1);
         }
     }
-    
-    public LinkedList listarPorNiveles(){
-        Queue cola = new LinkedList();
-        LinkedList lista = new LinkedList();
+
+    public Lista listarPorNiveles() {
+        //devuelve una lista con los elementos en recorrido por niveles
+        Cola q = new Cola();
+        Lista res = new Lista();
         NodoArbol nodoActual;
-        String result = "";
-        if(this.raiz != null){
-            cola.add(this.raiz);
-            while(!cola.isEmpty()){
-                nodoActual = (NodoArbol)cola.remove();
-                lista.add(lista.size(), nodoActual.getElem());
-                result += " " + nodoActual.getElem();
-                
-                if(nodoActual.getIzquierdo()!= null){
-                    cola.add(nodoActual.getIzquierdo());
-                    if(nodoActual.getDerecho() != null){
-                        cola.add(nodoActual.getDerecho());
+
+        if (this.raiz != null) {
+            q.poner(this.raiz);
+
+            while (!q.esVacia()) {
+                nodoActual = (NodoArbol) q.obtenerFrente();
+                q.sacar();
+                res.insertar(nodoActual.getElem(), res.longitud() + 1);
+
+                if (nodoActual.getIzquierdo() != null) {
+                    q.poner(nodoActual.getIzquierdo());
+                    if (nodoActual.getDerecho() != null) {
+                        q.poner(nodoActual.getDerecho());
                     }
                 }
-                
             }
         }
-        return lista;
+        return res;
     }
+
     
     public void mostrarArbol(){
         Queue cola = new LinkedList();
@@ -512,32 +469,7 @@ public class ArbolBin {
         return result;
     }
     
-    /*public Lista listarPorNiveles() {
-        //devuelve una lista con los elementos en recorrido por niveles
-        Cola q = new Cola();
-        Lista res = new Lista();
-        NodoArbol nodoActual;
-
-        if (this.raiz != null) {
-            q.poner(this.raiz);
-
-            while (!q.esVacia()) {
-                nodoActual = (NodoArbol) 
-                q.obtenerFrente();
-                q.sacar();
-                res.insertar(nodoActual.getElem(), res.longitud() + 1);
-
-                if (nodoActual.getIzquierdo() != null) {
-                    q.poner(nodoActual.getIzquierdo());
-                    if (nodoActual.getDerecho() != null) {
-                        q.poner(nodoActual.getDerecho());
-                    }
-                }
-            }
-        }
-        return res;
-    }*/
-    
+        
     public boolean esIsomorfo(ArbolBin arbol){
         boolean result = false;
         if(this.raiz != null && arbol.raiz != null){
@@ -587,11 +519,6 @@ public class ArbolBin {
             result = izq - der;
         }
         return result;
-    }
-    
-    public String formatoArbol(){
-        String result = ""+raiz.getElem();
-        return "";
     }
     
        //---------------------- EXTRAS ---------------------------
