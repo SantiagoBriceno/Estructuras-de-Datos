@@ -6,8 +6,8 @@
 package Estructuras_Jerarquicas;
 
 /**
- *
- * @author Usuario
+ 
+  @author Usuario
  */
 
 public class NodoArbol {
