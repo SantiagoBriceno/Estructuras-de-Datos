@@ -6,8 +6,6 @@
 package Estructuras_Jerarquicas;
 import Estructuras_Dinamicas.*;
 import Estructuras_Lineales.*;
-import java.util.LinkedList;
-import java.util.Queue;
 
 /**
  *
@@ -432,44 +430,6 @@ public class ArbolBin {
     }
 
     
-    public void mostrarArbol(){
-        Queue cola = new LinkedList();
-        NodoArbol nodoActual;
-        String result = "";
-        if(this.raiz != null){
-            cola.add(this.raiz);
-            while(!cola.isEmpty()){
-                nodoActual = (NodoArbol)cola.remove();
-                System.out.print(nodoActual.getElem() + " ");
-                
-                if(nodoActual.getIzquierdo()!= null){
-                    cola.add(nodoActual.getIzquierdo());
-                    System.out.println("");
-                }
-                if(nodoActual.getDerecho() != null){
-                    cola.add(nodoActual.getDerecho());
-                    System.out.println("");
-                }
-                
-                
-            }
-        }
-        
-    }
-    
-    public static String toStringLinkedList(LinkedList lista){
-        String result = "[";
-        for(int i = 0; i < lista.size(); i++){
-            if(i < (lista.size() - 1)){
-                result += lista.get(i) + ", ";
-            }else{
-                result += lista.get(i) + "]";
-            }
-        }
-        return result;
-    }
-    
-        
     public boolean esIsomorfo(ArbolBin arbol){
         boolean result = false;
         if(this.raiz != null && arbol.raiz != null){
