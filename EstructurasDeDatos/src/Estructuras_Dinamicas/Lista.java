@@ -199,4 +199,71 @@ public class Lista {
         }
     }
 
+    public Lista obtenerMultiplos(int num) {
+        int i = 1;
+        Lista lis = new Lista();
+        boolean primera = false;
+
+        if (!esVacia()) {
+            Nodo copia = null;
+            Nodo nuevo;
+            Nodo aux = this.cabecera;
+
+            while (aux != null) {
+                if ((i % num) == 0) {
+                    nuevo = new Nodo(aux.getElem(), null);
+                    if (!primera) {
+                        primera = true;
+                        lis.cabecera = nuevo;
+                        copia = new Nodo(aux.getElem(), null);
+                    }
+                    copia.setEnlace(nuevo);
+                    copia = copia.getEnlace();
+                }
+                aux = aux.getEnlace();
+                i++;
+            }
+        }
+        return lis;
+    }
+
+    public void eliminarApariciones(Object x) {
+        Nodo aux = this.cabecera;
+
+        if (!esVacia()) {
+            while (aux != null) {
+                if (aux.getElem().equals(x)) {
+                    this.cabecera = this.cabecera.getEnlace();
+                } else {
+                    if ((aux.getEnlace() != null) && aux.getEnlace().getElem().equals(x)) {
+                        aux.setEnlace(aux.getEnlace().getEnlace());
+
+                    }
+                }
+                aux = aux.getEnlace();
+            }
+        }
+    }
+
+    public boolean insertarPosSiguiente(Object elem1, Object elem2) {
+        boolean exito = false;
+
+        if (this.cabecera != null) {
+            Nodo aux = this.cabecera;
+            if (this.cabecera.equals(elem1)) {
+                Nodo cabecera = new Nodo(elem2, this.cabecera);
+                this.cabecera = cabecera;
+            }
+            while (aux != null) {
+                if (aux.getElem().equals(elem1)) {
+                    Nodo nuevo = new Nodo(elem2, aux.getEnlace());
+                    aux.setEnlace(nuevo);
+                }
+                aux = aux.getEnlace();
+            }
+            exito = true;
+        }
+        return exito;
+    }
+
 }
